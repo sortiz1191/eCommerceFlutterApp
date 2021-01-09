@@ -1,16 +1,40 @@
-import 'package:e_commerce/screens/register_page.dart';
 import 'package:e_commerce/widgets/custom_btn.dart';
 import 'package:e_commerce/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+
+  //build alert for errors
+  Future<void> _alertDialogBuilder() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Container(
+            child: Text("Just some random text for now"),
+          ),
+          actions: [
+            FlatButton(
+              child: Text("Close dialog"),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               //header title
               Container(
                 padding: EdgeInsets.only(top:24),
-                child: Text("Welcome user,\nLogin to your account", textAlign: TextAlign.center, style: Constants.boldHeading,)
+                child: Text("Create a new account", textAlign: TextAlign.center, style: Constants.boldHeading,)
               ),
 
               //Input fields
@@ -32,9 +56,9 @@ class _LoginPageState extends State<LoginPage> {
                   CustomInput(hintext: "Email...",),
                   CustomInput(hintext: "Password...",),
                   CustomBtn(
-                    text: "Login",
+                    text: "Create new account",
                     onPressed: () {
-                      print("Login btn");
+                      _alertDialogBuilder();
                     },
                     outlineBtn: false,
                   )
@@ -45,12 +69,9 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: CustomBtn(
-                  text: "Create a new account",
+                  text: "Back to Login",
                   onPressed: () {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => RegisterPage())
-                    );
+                    Navigator.pop(context);
                   },
                   outlineBtn: true,
                 ),
